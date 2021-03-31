@@ -1,24 +1,32 @@
 const db = require('../../db/index.js');
 
-const handleLogin = () => {
-
-}
-
 const getUserPasswordFromDB = (email) => {
   return new Promise ((resolve, reject) => {
-    const queryString = `SELECT * FROM users WHERE email='${email}'`;
+    const queryString = `SELECT password FROM users WHERE email='${email}'`;
     db.query(queryString, (err, result) => {
       if (err) {
         reject(err);
       } else {
-        console.log(result)
         resolve(result[0].password);
       }
     })
   })
 }
 
+const getUserDataFromDB = (email) => {
+  return new Promise((resolve, reject) => {
+    const queryString = `SELECT user_id, name FROM users WHERE email='${email}'`;
+    db.query(queryString, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result[0])
+      }
+    })
+  })
+}
+
 module.exports = {
-  handleLogin: handleLogin,
-  getUserPasswordFromDB: getUserPasswordFromDB
+  getUserPasswordFromDB: getUserPasswordFromDB,
+  getUserDataFromDB: getUserDataFromDB
 }
