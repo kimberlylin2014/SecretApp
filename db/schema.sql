@@ -1,0 +1,13 @@
+DROP DATABASE IF EXISTS secrets;
+
+CREATE DATABASE secrets;
+
+USE secrets;
+
+CREATE TABLE users (
+  user_id int AUTO_INCREMENT,
+  name VARCHAR(25) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(100) NOT NULL,
+  PRIMARY KEY(user_id)
+);
