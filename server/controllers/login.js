@@ -14,7 +14,6 @@ const handleLogin = (req, res) => {
        res.send('success')
     })
     .catch((err) => {
-      console.log(err)
       res.status(400).send("Can not login. Check password and try again.")
     })
 }
@@ -31,6 +30,7 @@ const validateCredentials = (textPw, hashPw) => {
    });
   });
 }
+
 
 
 module.exports = {
