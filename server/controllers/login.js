@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const loginModel = require('../model/login.js');
 
 const handleLogin = (req, res) => {
+  console.log(req.body)
   const { email, password } = req.body;
   let userDataForClient;
   loginModel.getUserPasswordFromDB(email)
