@@ -1,12 +1,17 @@
 import React from 'react';
 import styles from './accountList.styles.css';
 import axios from 'axios';
+import EntryList from '../entryList/entryList.jsx';
 
 class AccountList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      accounts: null
+      accounts: null,
+      images: {
+        facebook: 'https://www.flaticon.com/svg/vstatic/svg/1384/1384021.svg?token=exp=1617257503~hmac=10548e146281a9f757177815396d7e56',
+        youtube: 'https://www.flaticon.com/svg/vstatic/svg/49/49399.svg?token=exp=1617257581~hmac=400a0014da30d7b9aaf8f613a59c4715'
+      }
     }
   }
   componentDidMount() {
@@ -16,7 +21,7 @@ class AccountList extends React.Component {
       .then((resp) => {
         console.log(resp.data)
         this.setState({
-          accounts: resp.data
+          accounts: [...resp.data]
         })
 
       })
@@ -25,36 +30,24 @@ class AccountList extends React.Component {
       })
   }
 
-  // componentDidUpdate(prevProp, prevState) {
-  //   console.log(prevProp)
-  //   console.log(this.props)
-  //   if (prevpProp !== this.props) {
-  //     const { currentUser, currentToken } = this.props;
-  //     console.log(currentUser)
-  //     const token = window.sessionStorage.getItem("token");
-  //     const authStr = `Bearer ${token}`;
-  //     const authStr2 = `Bearer ${currentToken}`;
-  //     console.log(authStr)
-  //     console.log(authStr2)
-  //     axios.get(`/secret/user/${currentUser.user_id}/accounts`, { headers: { Authorization: authStr } })
-  //       .then((resp) => {
-  //         console.log(resp.data)
-  //         this.setState({
-  //           account: resp.data
-  //         })
-
-  //       })
-  //       .catch((error) => {
-  //         console.log(error);
-  //       })
-  //   }
-  // }
-
   render() {
     const { accounts } = this.state;
     return (
       <div className={styles.AccountList}>
-        {accounts ? 'have access to accounts' : 'no access'}
+        {accounts ? (
+          accounts.map((account) => {
+            return (
+              <div  key={account.account_password}>
+                <div className={styles.Info}>
+                  <img src={this.state.images[account.account_name]} width='30px'></img>
+                  <p>{account.account_name}</p>
+                </div>
+
+                <EntryList account={account} />
+              </div>
+            )
+          })
+        ): 'not authorized'}
       </div>
     )
   }

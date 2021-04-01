@@ -2,3 +2,12 @@
   width: 50%;
   margin: 0 auto;
 }
+
+.Info {
+  display: flex;
+  align-items: center;
+}
+
+.Info p {
+  margin: 0 0 0 30px;
+}
