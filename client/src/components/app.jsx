@@ -2,6 +2,7 @@ import React from 'react';
 import Register from './register/register.jsx';
 import Login from './login/login.jsx';
 import styles from './app.styles.css';
+import Home from './home/home.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,23 +21,25 @@ class App extends React.Component {
   setCurrentUserSession(userData) {
     const { token, email, name, user_id } = userData;
     const user = {name, email, user_id};
+    console.log('setting current user')
     this.setState({
       currentToken: token,
       currentUser: user
     }, () => {
-
       window.sessionStorage.setItem("token", this.state.currentToken);
     });
   }
 
   render() {
+    const { currentUser, currentToken } = this.state;
+    console.log(currentUser)
     return (
         <div className={styles.App}>
           <div className={styles.FormSection}>
-            {/* <Register /> */}
-            {this.state.currentUser ? `${this.state.currentUser.name}has access to secret page`: null}
-            <Login setCurrentUserSession={this.setCurrentUserSession}/>
+            {currentUser ? null: <Login setCurrentUserSession={this.setCurrentUserSession}/>}
+            {currentUser ? <h1>Welcome {currentUser.name} to the Secret Page!</h1>: null}
           </div>
+          {currentUser ? <Home currentUser={currentUser} currentToken={currentToken}/> : null}
         </div>
     );
   }
