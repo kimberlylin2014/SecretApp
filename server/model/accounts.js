@@ -19,6 +19,26 @@ const getAccountsByUserID = (userID, callback) => {
   })
 }
 
+const addAccountByUserID = (data, callback) => {
+  const {
+    user_id,
+    account_name,
+    account_password,
+    email
+  } = data;
+  const queryStr =
+  `INSERT INTO accounts(email, account_name, account_password, user_id) VALUES('${email}', '${account_name}', '${account_password}', ${user_id})`;
+  db.query(queryStr, (err, results) => {
+    if (err) {
+      callback(err);
+    } else {
+      const accountsData = [{account_name: data.account_name, email: data.email, account_password: data.account_password}];
+      callback(null, accountsData)
+    }
+  })
+}
+
 module.exports = {
-  getAccountsByUserID: getAccountsByUserID
+  getAccountsByUserID: getAccountsByUserID,
+  addAccountByUserID: addAccountByUserID
 }

@@ -3,7 +3,7 @@ import Register from './register/register.jsx';
 import Login from './login/login.jsx';
 import styles from './app.styles.css';
 import Home from './home/home.jsx';
-
+import axios from 'axios';
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -21,7 +21,6 @@ class App extends React.Component {
   setCurrentUserSession(userData) {
     const { token, email, name, user_id } = userData;
     const user = {name, email, user_id};
-    console.log('setting current user')
     this.setState({
       currentToken: token,
       currentUser: user
@@ -32,7 +31,6 @@ class App extends React.Component {
 
   render() {
     const { currentUser, currentToken } = this.state;
-    console.log(currentUser)
     return (
         <div className={styles.App}>
           <div className={styles.FormSection}>

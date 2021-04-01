@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const loginModel = require('../model/login.js');
 
 const handleLogin = (req, res) => {
-  console.log(req.body)
   const { email, password } = req.body;
   let userDataForClient;
   loginModel.getUserPasswordFromDB(email)
@@ -40,7 +39,7 @@ const handleLogin = (req, res) => {
 const generateAccessToken = (userID, email) => {
   const userJwtObj = {userID, email};
   return new Promise ((resolve, reject) => {
-    jwt.sign(userJwtObj, process.env.jwt_key, { expiresIn: '15s' }, function(err, token) {
+    jwt.sign(userJwtObj, process.env.jwt_key, { expiresIn: '60s' }, function(err, token) {
       if (err) {
         reject(err);
       } else {

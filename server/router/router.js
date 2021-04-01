@@ -6,6 +6,7 @@ const registerController = require('../controllers/register.js');
 const accountController = require('../controllers/accounts.js');
 
 router.get('/user/:userID/accounts', authenticationController.authorizeRequest, accountController.getAccounts);
+router.post('/user/:userID/newAccount', authenticationController.authorizeRequest, accountController.addAccount);
 router.post('/login', loginController.handleLogin);
 router.post('/register', registerController.registerUser);
 
