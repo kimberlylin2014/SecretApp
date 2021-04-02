@@ -39,7 +39,7 @@ const handleLogin = (req, res) => {
 const generateAccessToken = (userID, email) => {
   const userJwtObj = {userID, email};
   return new Promise ((resolve, reject) => {
-    jwt.sign(userJwtObj, process.env.jwt_key, { expiresIn: '60s' }, function(err, token) {
+    jwt.sign(userJwtObj, process.env.jwt_key, { expiresIn: '20s' }, function(err, token) {
       if (err) {
         reject(err);
       } else {

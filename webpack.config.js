@@ -18,9 +18,19 @@ module.exports = {
         }
       },
       {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"]
-      },
+        test: /\.((c|sa|sc)ss)$/i,
+        exclude: /node_modules/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: true,
+            },
+          },
+        ],
+      }
     ]
   }
 };

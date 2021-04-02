@@ -32,7 +32,7 @@ class Home extends React.Component {
   addAccountForUser(newAccount) {
     const { currentUser, currentToken } = this.props;
     const authStr = `Bearer ${currentToken}`;
-    axios.post(`secret/user/${currentUser.user_id}/newAccount`, newAccount, { headers: { Authorization: authStr } })
+    axios.post(`/secret/user/${currentUser.user_id}/newAccount`, newAccount, { headers: { Authorization: authStr } })
       .then((resp) => {
         this.setState({
           accounts: [...this.state.accounts, ...resp.data]
@@ -40,6 +40,8 @@ class Home extends React.Component {
       })
       .catch((err) => {
         console.log(err);
+        const { endUserSession } = this.props;
+        endUserSession();
       })
   }
 

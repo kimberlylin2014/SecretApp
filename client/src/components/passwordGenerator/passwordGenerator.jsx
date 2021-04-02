@@ -33,21 +33,26 @@ class PasswordGenerator extends React.Component {
     e.preventDefault();
     const { currentUser, addAccountForUser } = this.props;
     addAccountForUser(this.state);
+    this.setState({
+      email: '',
+      account_password: '',
+      account_name: 'Instagram'
+    })
 
   }
   render() {
-    const { account_name } = this.state;
+    const { account_name, account_password, email } = this.state;
     return (
       <div className={styles.PasswordGenerator}>
             <h5>Add an Account</h5>
            <Form>
             <FormGroup>
               <Label for="exampleEmail">Email</Label>
-              <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" onChange={this.handleOnChange} />
+              <Input type="email" name="email" id="exampleEmail" placeholder="email" onChange={this.handleOnChange} value={email} />
             </FormGroup>
             <FormGroup>
               <Label for="examplePassword">Password</Label>
-              <Input type="password" name="account_password" id="examplePassword" placeholder="password placeholder" onChange={this.handleOnChange} />
+              <Input type="password" name="account_password" id="examplePassword" placeholder="password" onChange={this.handleOnChange} value={account_password}/>
             </FormGroup>
             <FormGroup>
               <Label for="exampleSelect">Select</Label>
@@ -55,7 +60,8 @@ class PasswordGenerator extends React.Component {
                 <option>Instagram</option>
                 <option>Facebook</option>
                 <option>Myspace</option>
-                <option>Google</option>
+                <option>Twitter</option>
+                <option>Youtube</option>
                 <option>Github</option>
               </Input>
             </FormGroup>

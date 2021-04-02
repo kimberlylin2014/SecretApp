@@ -8,8 +8,12 @@ class AccountList extends React.Component {
     super(props);
     this.state = {
       images: {
-        facebook: 'https://www.flaticon.com/svg/vstatic/svg/1384/1384021.svg?token=exp=1617257503~hmac=10548e146281a9f757177815396d7e56',
-        youtube: 'https://www.flaticon.com/svg/vstatic/svg/49/49399.svg?token=exp=1617257581~hmac=400a0014da30d7b9aaf8f613a59c4715'
+        Facebook: './assets/facebook.png',
+        Github: './assets/github.png',
+        Instagram: './assets/instagram.png',
+        Myspace: './assets/myspace.png',
+        Twitter: './assets/twitter.png',
+        Youtube: './assets/youtube.png',
       }
     }
   }
@@ -22,28 +26,14 @@ class AccountList extends React.Component {
             return (
               <div key={account.account_password}>
                 <div className={styles.Info}>
+                  <img src={`${this.state.images[account.account_name]}`} width='50px'></img>
                   <p>{account.account_name}</p>
                 </div>
-
                 <EntryList account={account} />
               </div>
             )
           })
         }
-        {/* {accounts ? (
-          accounts.map((account) => {
-            return (
-              <div  key={account.account_password}>
-                <div className={styles.Info}>
-                  <img src={this.state.images[account.account_name]} width='30px'></img>
-                  <p>{account.account_name}</p>
-                </div>
-
-                <EntryList account={account} />
-              </div>
-            )
-          })
-        ): 'not authorized'} */}
       </div>
     )
   }

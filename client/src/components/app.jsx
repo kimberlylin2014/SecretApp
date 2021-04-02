@@ -3,15 +3,19 @@ import Register from './register/register.jsx';
 import Login from './login/login.jsx';
 import styles from './app.styles.css';
 import Home from './home/home.jsx';
+import Header from './navbar/navbar.jsx';
 import axios from 'axios';
 class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       currentUser: null,
-      currentToken: null
+      currentToken: null,
+      sessionEndWarning: false,
     }
     this.setCurrentUserSession = this.setCurrentUserSession.bind(this);
+    this.endUserSession = this.endUserSession.bind(this);
+    this.handleCancelSessionWarning = this.handleCancelSessionWarning.bind(this);
   }
 
   componentDidMount() {
@@ -29,15 +33,37 @@ class App extends React.Component {
     });
   }
 
+  endUserSession() {
+    window.sessionStorage.removeItem("token");
+    this.setState({
+      currentToken: null,
+      currentUser: null,
+      sessionEndWarning: true
+    })
+  }
+
+  handleCancelSessionWarning() {
+    this.setState({
+      sessionEndWarning: false
+    })
+  }
+
   render() {
-    const { currentUser, currentToken } = this.state;
+    const { currentUser, currentToken, sessionEndWarning } = this.state;
     return (
         <div className={styles.App}>
-          <div className={styles.FormSection}>
-            {currentUser ? null: <Login setCurrentUserSession={this.setCurrentUserSession}/>}
-            {currentUser ? <h1>Welcome {currentUser.name} to the Secret Page!</h1>: null}
-          </div>
-          {currentUser ? <Home currentUser={currentUser} currentToken={currentToken}/> : null}
+            <Header currentUser={currentUser}/>
+            <div className={styles.Container}>
+              {sessionEndWarning ? (
+              <div className={styles.WarningSession}>
+                <img src="/assets/cancel.png" width='20px' onClick={this.handleCancelSessionWarning}></img> <p >User Session Ended! Please Sign Back In</p>
+              </div>
+              ) : null}
+              <div className={styles.FormSection}>
+                {currentUser ? null: <Login setCurrentUserSession={this.setCurrentUserSession}/>}
+              </div>
+              {currentUser ? <Home currentUser={currentUser} currentToken={currentToken} endUserSession={this.endUserSession}/> : null}
+            </div>
         </div>
     );
   }

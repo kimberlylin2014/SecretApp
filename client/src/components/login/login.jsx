@@ -37,7 +37,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className={styles.Form}>
-        <h3>Login</h3>
+        <h3 style={{textAlign: 'center'}}>Login</h3>
         <Form >
           <FormGroup>
             <Label for="Email">Email</Label>
