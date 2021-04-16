@@ -27,6 +27,10 @@ class Login extends React.Component {
     const { setCurrentUserSession } = this.props;
     axios.post('/secret/login', loginData)
       .then((data) => {
+        this.state = {
+          email: '',
+          password: ''
+        }
         setCurrentUserSession(data.data)
       })
       .catch((err) => {
