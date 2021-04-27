@@ -1,0 +1,10 @@
+.WarningSession {
+  margin: 30px auto 0 ;
+  height: 50px;
+  background-color: #ffe268;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 2s;
+}

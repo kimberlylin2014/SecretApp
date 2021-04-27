@@ -4,7 +4,12 @@ import Login from './login/login.jsx';
 import styles from './app.styles.css';
 import Home from './home/home.jsx';
 import Header from './navbar/navbar.jsx';
+import WarningSession from './warningSession/warningSession.jsx';
 import axios from 'axios';
+import TestLogin from './test.login.jsx';
+import SecretPage from './test.secret.jsx';
+import { Route, Switch, Link, Redirect } from "react-router-dom";
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -53,16 +58,19 @@ class App extends React.Component {
     return (
         <div className={styles.App}>
             <Header currentUser={currentUser}/>
+            <WarningSession sessionEndWarning={sessionEndWarning} handleCancelSessionWarning={this.handleCancelSessionWarning}/>
             <div className={styles.Container}>
-              {sessionEndWarning ? (
-              <div className={styles.WarningSession}>
-                <img src="/assets/cancel.png" width='20px' onClick={this.handleCancelSessionWarning}></img> <p >User Session Ended! Please Sign Back In</p>
-              </div>
-              ) : null}
-              <div className={styles.FormSection}>
-                {currentUser ? null: <Login setCurrentUserSession={this.setCurrentUserSession}/>}
-              </div>
-              {currentUser ? <Home currentUser={currentUser} currentToken={currentToken} endUserSession={this.endUserSession}/> : null}
+            <Switch>
+                <Route exact path='/' render={() => {
+                  return currentUser ? <Redirect to='/home' /> : (
+                  <div className={styles.FormSection}>
+                    <Login setCurrentUserSession={this.setCurrentUserSession}/>
+                  </div>)
+                }} />
+                <Route exact path='/home' render={() => {
+                  return currentUser ? <Home currentUser={currentUser} currentToken={currentToken} endUserSession={this.endUserSession}/> : <Redirect to='/'/>
+                }}/>
+            </Switch>
             </div>
         </div>
     );
