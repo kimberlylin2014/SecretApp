@@ -6,8 +6,6 @@ import Home from './home/home.jsx';
 import Header from './navbar/navbar.jsx';
 import WarningSession from './warningSession/warningSession.jsx';
 import axios from 'axios';
-import TestLogin from './test.login.jsx';
-import SecretPage from './test.secret.jsx';
 import { Route, Switch, Link, Redirect } from "react-router-dom";
 
 class App extends React.Component {
