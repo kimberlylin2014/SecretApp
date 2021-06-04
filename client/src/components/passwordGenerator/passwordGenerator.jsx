@@ -17,6 +17,7 @@ class PasswordGenerator extends React.Component {
 
   handleOnChange(e) {
     const {name, value} = e.target;
+
     this.setState({
       [name]: value
     })
